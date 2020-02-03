@@ -150,6 +150,10 @@ You can see the output by going to the settings screen and using the new `Log Vi
 
 # Appendices
 
+## Feedback and discussion
+
+https://users.rust-lang.org/t/trying-to-compile-rust-sdl-stuff-for-a-rg300-console-buildroot-mipsel-uclibc/36722/14
+
 ## Restoring the original games
 
 My RG300 came with an SD full of software; after overwriting your internal card, you will have an "empty" RetroFW installation. After doing this, I grabbed the [starter pack zips](https://github.com/retrofw/retrofw.github.io/releases/tag/StarterPack2.0), unzipped the OPKs, copied them to the internal SD card and did the "update OPK links thing". This will install a similar set of emulators (and some applications) to the one that originally came with the device.
