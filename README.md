@@ -121,6 +121,13 @@ You can build this by altering your `PATH` with:
 $ export PATH=/path/to/buildroot/output/host/bin/:$PATH
 ```
 
+creating a Cargo config in the `src/sdl-demo`:
+
+```
+[target.mipsel-unknown-linux-uclibc]
+linker = "/path/to/buildroot/output/host/usr/bin/mipsel-RetroFW-linux-uclibc-cc"
+```
+
 and then running:
 
 ```
