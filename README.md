@@ -8,6 +8,12 @@ https://retrogame300.com/products/retro-game-300
 
 This should also work on other devices using JZ4760 and RetroFW, such as the RS-97, Retro Arcade Mini and LDK.
 
+There aren't so many devices of this kind, and the ones I found sounded even harder for Rust. However, recently I found:
+
+https://www.hardkernel.com/shop/odroid-go-advance/
+
+, which could be a better option as it seems to use ARM which tends to be better supported.
+
 # Updating your device
 
 The RG300 and a couple other devices tend to use [buildroot](https://buildroot.org/) to build small Linux distributions. The most popular seems to be [RetroFW](https://retrofw.github.io/). However, soon I learnt that my device came with an old version of RetroFW which doesn't support niceties such as being able to do networking over USB to your computer.
