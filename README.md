@@ -26,106 +26,24 @@ With the latest RetroFW, if you connect your device to your computer using a USB
 
 # Building buildroot
 
-RetroFW uses some kind of fork of buildroot which comes with Rust 1.23.0. I decided to use RetroFW master that comes with 1.33.0. However, I copied over the buildroot configuration from RetroFW and removed some deprecated options. You can find the result at `buildroot-config` in this repo.
+RetroFW uses some kind of fork of buildroot which comes with Rust 1.23.0. Besides being old, this is also problematic as recent versions of Rust updated the mips targets to generate mips32r2 instructions:
 
-If you try to build this, it will fail, because buildroot doesn't support uclibc which the RetroFW configuration uses. Indeed, the Rust uclibc target has a low tier of support for Rust, but it *seems* to work. I applied the following patch to get it to build:
+https://github.com/rust-lang/rust/pull/48874
 
-```
-diff --git a/package/rust/rust.mk b/package/rust/rust.mk
-index 5d14fc6682..5f9d35ce0b 100644
---- a/package/rust/rust.mk
-+++ b/package/rust/rust.mk
-@@ -41,7 +41,7 @@ HOST_RUST_POST_EXTRACT_HOOKS += HOST_RUST_EXCLUDE_ORIG_FILES
- define HOST_RUST_CONFIGURE_CMDS
-        ( \
-                echo '[build]'; \
--               echo 'target = ["$(RUSTC_TARGET_NAME)"]'; \
-+               echo 'target = ["mipsel-unknown-linux-uclibc"]'; \
-                echo 'cargo = "$(HOST_CARGO_BIN_DIR)/cargo/bin/cargo"'; \
-                echo 'rustc = "$(HOST_RUST_BIN_DIR)/rustc/bin/rustc"'; \
-                echo 'python = "$(HOST_DIR)/bin/python2"'; \
-@@ -54,7 +54,7 @@ define HOST_RUST_CONFIGURE_CMDS
-                echo 'prefix = "$(HOST_DIR)"'; \
-                echo '[rust]'; \
-                echo 'channel = "stable"'; \
--               echo '[target.$(RUSTC_TARGET_NAME)]'; \
-+               echo '[target.mipsel-unknown-linux-uclibc]'; \
-                echo 'cc = "$(TARGET_CROSS)gcc"'; \
-                echo $(HOST_RUST_JEMALLOC_CONF); \
-        ) > $(@D)/config.toml
-```
+I opened a bug to see if they restore support:
 
-, which is a terrible idea, but it works. If you compile buildroot, it will work with some warnings (also ripgrep will fail to build) and generate a buildroot with Rust support for `mipsel-unknown-linux-uclibc`.
+https://github.com/rust-lang/rust/issues/68865
+
+In the meantime. I created some patches to fix this working on top of buildroot master (commit `f201ca9d0d25b491ec5e1ed4e1d02fd52d027997`). They are in this repo as `00*`. `0001`-`0009` are some patches that @glebm showed me that update Rust to 1.40.0. `0010` is an ugly buildroot hack that forces buildroot to build Rust for the `mipsel-unknown-linux-uclibc` target; buildroot doesn't want to build Rust on uclibc (it's a tier 3 target for Rust, so it's not built nor tested automatically). This is ugly and borks building any other target. `0011` adds a patch on top of Rust to buildroot which disables the generation of mips32r2 instructions. Finally, I had some issues getting `sdl_mixer` to build, so I just copied over the package from RetroFW's buildroot.
+
+To build, apply those patches and copy `buildroot-config` in this repo as `.config` to the root of the buildroot repo. Then build according to buildroot's instructions.
 
 # Writing some software
 
-Apparently RetroFW 2 just supports SDL 1.2, not the latest SDL 2, so I cloned:
-
-https://github.com/brson/rust-sdl/
-
-The most I've managed to do is replace the contents of `src/sdl-demo/main.rs` with:
-
-```
-extern crate sdl;
-extern crate rand;
-
-use rand::Rng;
-
-use sdl::video::{SurfaceFlag, VideoFlag};
-use sdl::event::{Event, Key};
-
-fn main() {
-    println!("1");
-    sdl::init(&[sdl::InitFlag::Video]);
-    println!("1");
-    let screen = match sdl::video::set_video_mode(320, 240, 16, &[SurfaceFlag::SWSurface], &[]) {
-        Ok(screen) => screen,
-        Err(err) => panic!("failed to set video mode: {}", err)
-    };
-    println!("1");
-
-    // Note: You'll want to put this and the flip call inside the main loop
-    // but we don't as to not startle epileptics
-            screen.fill_rect(Some(sdl::Rect {
-                x: 0,
-                y: 0,
-                w: 320,
-                h: 240
-            }), sdl::video::Color::RGB {0: 255, 1: 0, 2:0});
-
-    println!("1");
-
-    screen.flip();
-    println!("1");
-
-    'main : loop {
-        'event : loop {
-            match sdl::event::poll_event() {
-                Event::Quit => break 'main,
-                Event::None => break 'event,
-                Event::Key(k, _, _, _)
-                    if k == Key::Escape
-                        => break 'main,
-                _ => {}
-            }
-        }
-    }
-
-    sdl::quit();
-}
-```
-
-You can build this by altering your `PATH` with:
+You can build this repo by altering your `PATH` with:
 
 ```
 $ export PATH=/path/to/buildroot/output/host/bin/:$PATH
-```
-
-creating a Cargo config in the `src/sdl-demo`:
-
-```
-[target.mipsel-unknown-linux-uclibc]
-linker = "/path/to/buildroot/output/host/usr/bin/mipsel-RetroFW-linux-uclibc-cc"
 ```
 
 and then running:
@@ -134,17 +52,15 @@ and then running:
 $ cargo build --target mipsel-unknown-linux-uclibc
 ```
 
-in the `src/sdl-demo`.
-
 To run this software, I use lftp to copy the binary over:
 
 ```
 $ lftp 169.254.1.1
 > cd /home/retrofw
-> put target/mipsel-unknown-linux-uclibc/debug/sdl-demo
+> put target/mipsel-unknown-linux-uclibc/debug/retrofw2-rust
 ```
 
-Once it is copied, you can enable debug logs by activating the "Output logs" option in `Settings`. Then use `apps` / `Explorer` to locate `sdl-demo` in `/home/retrofw` and execute it. It will draw a fuzzy, reddish rectangle and crash after a few seconds.
+Once it is copied, you can enable debug logs by activating the "Output logs" option in `Settings`. Then use `apps` / `Explorer` to locate `retrofw2-rust` in `/home/retrofw` and execute it. It will draw random color squares; you can press SELECT to exit.
 
 You can see the output by going to the settings screen and using the new `Log Viewer` application.
 

@@ -1,0 +1,34 @@
+From a0cd03df78c534984653b4fb8d2cc0c3624b7e1a Mon Sep 17 00:00:00 2001
+From: alex <alex@pdp7.net>
+Date: Thu, 6 Feb 2020 10:48:32 +0100
+Subject: [PATCH 10/12] Hardcode target to mipsel/uclibc is built
+
+---
+ package/rust/rust.mk | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/package/rust/rust.mk b/package/rust/rust.mk
+index a473b5e8af..0549e1cab9 100644
+--- a/package/rust/rust.mk
++++ b/package/rust/rust.mk
+@@ -40,7 +40,7 @@ HOST_RUST_POST_EXTRACT_HOOKS += HOST_RUST_EXCLUDE_ORIG_FILES
+ define HOST_RUST_CONFIGURE_CMDS
+ 	( \
+ 		echo '[build]'; \
+-		echo 'target = ["$(RUSTC_TARGET_NAME)"]'; \
++		echo 'target = ["mipsel-unknown-linux-uclibc"]'; \
+ 		echo 'cargo = "$(HOST_RUST_BIN_DIR)/cargo/bin/cargo"'; \
+ 		echo 'rustc = "$(HOST_RUST_BIN_DIR)/rustc/bin/rustc"'; \
+ 		echo 'python = "$(HOST_DIR)/bin/python2"'; \
+@@ -56,7 +56,7 @@ define HOST_RUST_CONFIGURE_CMDS
+ 		echo 'sysconfdir = "$(HOST_DIR)/etc"'; \
+ 		echo '[rust]'; \
+ 		echo 'channel = "stable"'; \
+-		echo '[target.$(RUSTC_TARGET_NAME)]'; \
++		echo '[target.mipsel-unknown-linux-uclibc]'; \
+ 		echo 'cc = "$(TARGET_CROSS)gcc"'; \
+ 		echo $(HOST_RUST_JEMALLOC_CONF); \
+ 	) > $(@D)/config.toml
+-- 
+2.20.1
+

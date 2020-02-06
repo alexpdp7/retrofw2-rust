@@ -1,0 +1,29 @@
+From 5211673b84fa2f378583e488a52e6b7191f9494f Mon Sep 17 00:00:00 2001
+From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
+Date: Wed, 15 Jan 2020 14:26:12 +0100
+Subject: [PATCH 04/12] package/rust: drop dependency on host-cargo-bin
+
+As host-rust depends on host-rust-bin, which depends on host-cargo-bin,
+remove unneeded dependency.
+
+Signed-off-by: Eric Le Bihan <eric.le.bihan.dev@free.fr>
+Signed-off-by: Patrick Havelange <patrick.havelange@essensium.com>
+---
+ package/rust/rust.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/package/rust/rust.mk b/package/rust/rust.mk
+index 901995c203..50ed08901c 100644
+--- a/package/rust/rust.mk
++++ b/package/rust/rust.mk
+@@ -15,7 +15,6 @@ HOST_RUST_PROVIDES = host-rustc
+ HOST_RUST_DEPENDENCIES = \
+ 	toolchain \
+ 	host-rust-bin \
+-	host-cargo-bin \
+ 	host-openssl \
+ 	host-python \
+ 	$(BR2_CMAKE_HOST_DEPENDENCY)
+-- 
+2.20.1
+

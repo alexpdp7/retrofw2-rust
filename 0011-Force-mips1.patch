@@ -1,0 +1,46 @@
+From abd628bb5537c2ba54738bef7bb1e7f046db3b2a Mon Sep 17 00:00:00 2001
+From: alex <alex@pdp7.net>
+Date: Thu, 6 Feb 2020 11:28:38 +0100
+Subject: [PATCH 11/12] Force mips1
+
+---
+ package/rust/0001-Force-mips1.patch | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 package/rust/0001-Force-mips1.patch
+
+diff --git a/package/rust/0001-Force-mips1.patch b/package/rust/0001-Force-mips1.patch
+new file mode 100644
+index 0000000000..4bef06a821
+--- /dev/null
++++ b/package/rust/0001-Force-mips1.patch
+@@ -0,0 +1,27 @@
++From b203638b55565841205caec776cb68a093a088b8 Mon Sep 17 00:00:00 2001
++From: alex <alex@pdp7.net>
++Date: Thu, 6 Feb 2020 11:25:33 +0100
++Subject: [PATCH] Force mips1
++
++---
++ src/librustc_target/spec/mipsel_unknown_linux_uclibc.rs | 4 ++--
++ 1 file changed, 2 insertions(+), 2 deletions(-)
++
++diff --git a/src/librustc_target/spec/mipsel_unknown_linux_uclibc.rs b/src/librustc_target/spec/mipsel_unknown_linux_uclibc.rs
++index a8152011efa..1e730ea9d47 100644
++--- a/src/librustc_target/spec/mipsel_unknown_linux_uclibc.rs
+++++ b/src/librustc_target/spec/mipsel_unknown_linux_uclibc.rs
++@@ -14,8 +14,8 @@ pub fn target() -> TargetResult {
++         linker_flavor: LinkerFlavor::Gcc,
++ 
++         options: TargetOptions {
++-            cpu: "mips32r2".to_string(),
++-            features: "+mips32r2,+soft-float".to_string(),
+++            cpu: "mips32".to_string(),
+++            features: "mips32,-mips32r2,+single-float".to_string(),
++             max_atomic_width: Some(32),
++             target_mcount: "_mcount".to_string(),
++ 
++-- 
++2.20.1
++
+-- 
+2.20.1
+

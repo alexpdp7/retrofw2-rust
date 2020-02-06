@@ -1,0 +1,9 @@
+[package]
+name = "retrofw2-rust"
+version = "0.1.0"
+authors = ["alex <alex@pdp7.net>"]
+edition = "2018"
+
+[dependencies]
+sdl = "0.3.6"
+rand = "0.3"
