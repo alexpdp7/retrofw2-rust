@@ -6,6 +6,8 @@ https://retrogame300.com/products/retro-game-300
 
 , to encourage myself to learn Rust by writing simple games for it. It's a mipsel device, so in theory it should be possible to compile Rust code for it. However, doing this is more complex that I anticipated.
 
+This should also work on other devices using JZ4760 and RetroFW, such as the RS-97, Retro Arcade Mini and LDK.
+
 # Updating your device
 
 The RG300 and a couple other devices tend to use [buildroot](https://buildroot.org/) to build small Linux distributions. The most popular seems to be [RetroFW](https://retrofw.github.io/). However, soon I learnt that my device came with an old version of RetroFW which doesn't support niceties such as being able to do networking over USB to your computer.
@@ -75,3 +77,7 @@ https://users.rust-lang.org/t/trying-to-compile-rust-sdl-stuff-for-a-rg300-conso
 My RG300 came with an SD full of software; after overwriting your internal card, you will have an "empty" RetroFW installation. After doing this, I grabbed the [starter pack zips](https://github.com/retrofw/retrofw.github.io/releases/tag/StarterPack2.0), unzipped the OPKs, copied them to the internal SD card and did the "update OPK links thing". This will install a similar set of emulators (and some applications) to the one that originally came with the device.
 
 After that, I extracted the ROMs folder from my original microSD backup (you can use losetup -P to create a loop device per partition in the SD card, the third one contains the games) and copied them too to the internal microSD card. I think the menu integration is slightly worse now, but they seem to work.
+
+## Thanks to...
+
+@glebm, @pingflood, @jbanes on #developer-talk on the RetroFW discord, which helped a noob in these affairs :)
