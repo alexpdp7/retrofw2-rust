@@ -1,7 +1,7 @@
-From 5ca7c147526af469d4721e4c7d44be002fb5d650 Mon Sep 17 00:00:00 2001
+From 82461be2a3eb21c7f409ce115a30497633b751a6 Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:15 +0100
-Subject: [PATCH 07/12] docs/manual: cargo packages depend on host-rustc
+Subject: [PATCH 07/11] docs/manual: cargo packages depend on host-rustc
 
 As Cargo is either installed by host-rust or host-rust-bin, the
 Cargo-based packages should depend on host-rustc.

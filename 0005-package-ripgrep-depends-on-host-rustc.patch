@@ -1,7 +1,7 @@
-From daecb4c49629f2c0f315cc9c4d2f7d867d7263e6 Mon Sep 17 00:00:00 2001
+From d65273020e8713bb3e52081283d248f2444a5641 Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:13 +0100
-Subject: [PATCH 05/12] package/ripgrep: depends on host-rustc
+Subject: [PATCH 05/11] package/ripgrep: depends on host-rustc
 
 As all providers of rustc also install cargo, there is no need to depend
 on the standalone cargo package anymore. Instead add host-rustc to the

@@ -1,7 +1,7 @@
-From f92fd4bd3ba263d8d1625317816cb2e2d0ddc15d Mon Sep 17 00:00:00 2001
+From e009963f4ccaf37a8e6fe46636af466c9a663d15 Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:11 +0100
-Subject: [PATCH 03/12] package/rust-bin: host variant depends on
+Subject: [PATCH 03/11] package/rust-bin: host variant depends on
  host-cargo-bin
 
 Ensure installation of pre-built cargo binary by adding it to the

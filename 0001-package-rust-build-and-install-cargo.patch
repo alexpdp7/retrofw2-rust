@@ -1,7 +1,7 @@
-From 89029f0934e1b57b357e4b2f45fdbc6d361a986d Mon Sep 17 00:00:00 2001
+From 76343afbb822dfd68b5c14020bf311687881220f Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:09 +0100
-Subject: [PATCH 01/12] package/rust: build and install cargo
+Subject: [PATCH 01/11] package/rust: build and install cargo
 
 Cargo source code is not provided anymore as a separate tarball but is
 now built along with the Rust compiler.

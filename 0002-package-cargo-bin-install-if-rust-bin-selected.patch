@@ -1,7 +1,7 @@
-From fe39f08b8e11a43824aa5674b31545108cc26841 Mon Sep 17 00:00:00 2001
+From 41b9a677e4ed97b834644820deb3472260de5192 Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:10 +0100
-Subject: [PATCH 02/12] package/cargo-bin: install if rust-bin selected
+Subject: [PATCH 02/11] package/cargo-bin: install if rust-bin selected
 
 If host-rust-bin, the pre-built Rust compiler, is selected as a rustc
 provider, then also install the pre-built cargo binary to be coherent.

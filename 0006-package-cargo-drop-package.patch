@@ -1,7 +1,7 @@
-From faac4de794dac16c38950eac124ef78f142dab3c Mon Sep 17 00:00:00 2001
+From 16d583913513105444184ddefe74034dbc32875c Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:14 +0100
-Subject: [PATCH 06/12] package/cargo: drop package
+Subject: [PATCH 06/11] package/cargo: drop package
 
 As no package depends on the standalone cargo package, it can be
 dropped.
@@ -23,10 +23,10 @@ Signed-off-by: Patrick Havelange <patrick.havelange@essensium.com>
  delete mode 100644 package/cargo/config.in
 
 diff --git a/DEVELOPERS b/DEVELOPERS
-index d8ea23e0b3..e9aae57282 100644
+index 7d3d1ca11a..64c80da9db 100644
 --- a/DEVELOPERS
 +++ b/DEVELOPERS
-@@ -709,7 +709,6 @@ N:	Eric Le Bihan <eric.le.bihan.dev@free.fr>
+@@ -708,7 +708,6 @@ N:	Eric Le Bihan <eric.le.bihan.dev@free.fr>
  F:	docs/manual/adding-packages-meson.txt
  F:	package/adwaita-icon-theme/
  F:	package/cargo-bin/
@@ -35,7 +35,7 @@ index d8ea23e0b3..e9aae57282 100644
  F:	package/eudev/
  F:	package/execline/
 diff --git a/package/Config.in.host b/package/Config.in.host
-index 62e860d7c3..d69961e813 100644
+index dfea478868..7ff34a229e 100644
 --- a/package/Config.in.host
 +++ b/package/Config.in.host
 @@ -3,7 +3,6 @@ menu "Host utilities"

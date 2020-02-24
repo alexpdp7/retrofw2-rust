@@ -1,7 +1,7 @@
-From 5211673b84fa2f378583e488a52e6b7191f9494f Mon Sep 17 00:00:00 2001
+From eddc8b2722cf8dca13db43e27fa8c0b7e062a832 Mon Sep 17 00:00:00 2001
 From: Eric Le Bihan <eric.le.bihan.dev@free.fr>
 Date: Wed, 15 Jan 2020 14:26:12 +0100
-Subject: [PATCH 04/12] package/rust: drop dependency on host-cargo-bin
+Subject: [PATCH 04/11] package/rust: drop dependency on host-cargo-bin
 
 As host-rust depends on host-rust-bin, which depends on host-cargo-bin,
 remove unneeded dependency.

@@ -1,7 +1,7 @@
-From abd628bb5537c2ba54738bef7bb1e7f046db3b2a Mon Sep 17 00:00:00 2001
+From 5a968123f01f062112fdbc713cd8bb54b24d0669 Mon Sep 17 00:00:00 2001
 From: alex <alex@pdp7.net>
 Date: Thu, 6 Feb 2020 11:28:38 +0100
-Subject: [PATCH 11/12] Force mips1
+Subject: [PATCH 11/11] Force mips1
 
 ---
  package/rust/0001-Force-mips1.patch | 27 +++++++++++++++++++++++++++

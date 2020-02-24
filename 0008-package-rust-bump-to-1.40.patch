@@ -1,7 +1,7 @@
-From 627e2195f268dba1d41868eff43dbae749035008 Mon Sep 17 00:00:00 2001
+From d1d8a7e588084cb0dfedea0eb428d6494a6f8b71 Mon Sep 17 00:00:00 2001
 From: Patrick Havelange <patrick.havelange@essensium.com>
 Date: Wed, 15 Jan 2020 14:26:16 +0100
-Subject: [PATCH 08/12] package/rust: bump to 1.40
+Subject: [PATCH 08/11] package/rust: bump to 1.40
 
 - remove of the llvm workaround patch as it is integrated in this
   newer version.

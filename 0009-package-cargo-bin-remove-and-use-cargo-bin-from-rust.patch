@@ -1,7 +1,7 @@
-From 6117bfcdba99e734e9b9969a95ba9a899e66397a Mon Sep 17 00:00:00 2001
+From d608903e08aa82c195148195b02c6e272c7a8ba5 Mon Sep 17 00:00:00 2001
 From: Patrick Havelange <patrick.havelange@essensium.com>
 Date: Wed, 15 Jan 2020 14:26:17 +0100
-Subject: [PATCH 09/12] package/cargo-bin: remove and use cargo-bin from
+Subject: [PATCH 09/11] package/cargo-bin: remove and use cargo-bin from
  rust-bin package
 
 Also added hashes for rust-bin powerpc64le.
@@ -19,10 +19,10 @@ Signed-off-by: Patrick Havelange <patrick.havelange@essensium.com>
  delete mode 100644 package/cargo-bin/cargo-bin.mk
 
 diff --git a/DEVELOPERS b/DEVELOPERS
-index e9aae57282..d9ef7429a3 100644
+index 64c80da9db..bbef9f3de5 100644
 --- a/DEVELOPERS
 +++ b/DEVELOPERS
-@@ -708,7 +708,6 @@ F:	package/gstreamer1/gst1-plugins-bayer2rgb-neon/
+@@ -707,7 +707,6 @@ F:	package/gstreamer1/gst1-plugins-bayer2rgb-neon/
  N:	Eric Le Bihan <eric.le.bihan.dev@free.fr>
  F:	docs/manual/adding-packages-meson.txt
  F:	package/adwaita-icon-theme/

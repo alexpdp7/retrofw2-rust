@@ -1,7 +1,7 @@
-From a0cd03df78c534984653b4fb8d2cc0c3624b7e1a Mon Sep 17 00:00:00 2001
+From f6355a646b15747525bebcf62c1d46006fc7280d Mon Sep 17 00:00:00 2001
 From: alex <alex@pdp7.net>
 Date: Thu, 6 Feb 2020 10:48:32 +0100
-Subject: [PATCH 10/12] Hardcode target to mipsel/uclibc is built
+Subject: [PATCH 10/11] Hardcode target to mipsel/uclibc is built
 
 ---
  package/rust/rust.mk | 4 ++--
