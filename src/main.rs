@@ -4,7 +4,7 @@ extern crate sdl;
 use rand::Rng;
 
 use sdl::event::{Event, Key};
-use sdl::video::{SurfaceFlag, VideoFlag};
+use sdl::video::{Surface, SurfaceFlag, VideoFlag};
 
 const SIZE_X: i16 = 320;
 const SIZE_Y: i16 = 240;
@@ -26,7 +26,6 @@ fn main() {
     sdl::init(&[sdl::InitFlag::Video]);
     sdl::wm::set_caption("rust-sdl demo - video", "rust-sdl");
 
-    let mut rng = rand::thread_rng();
     let screen = match sdl::video::set_video_mode(
         SIZE_X as isize,
         SIZE_Y as isize,
@@ -49,21 +48,25 @@ fn main() {
             }
         }
 
-        for i in 0..SIZE_X {
-            for j in 0..SIZE_Y {
-                screen.fill_rect(
-                    Some(sdl::Rect {
-                        x: i,
-                        y: j,
-                        w: 1,
-                        h: 1,
-                    }),
-                    rng.gen::<sdl::video::Color>(),
-                );
-            }
-        }
+        draw_random_pixels(&screen);
         screen.flip();
     }
 
     sdl::quit();
+}
+
+fn draw_random_pixels(screen: &Surface) {
+    for i in 0..SIZE_X {
+        for j in 0..SIZE_Y {
+            screen.fill_rect(
+                Some(sdl::Rect {
+                    x: i,
+                    y: j,
+                    w: 1,
+                    h: 1,
+                }),
+                rand::thread_rng().gen::<sdl::video::Color>(),
+            );
+        }
+    }
 }
