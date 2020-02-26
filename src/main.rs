@@ -3,10 +3,8 @@ extern crate sdl;
 
 use std::collections::HashMap;
 
-use rand::Rng;
-
 use sdl::event::{Event, Key};
-use sdl::video::{Surface, SurfaceFlag, VideoFlag};
+use sdl::video::{Surface, SurfaceFlag, VideoFlag, Color};
 
 const SIZE_X: i16 = 320;
 const SIZE_Y: i16 = 240;
@@ -41,6 +39,7 @@ fn main() {
 
     let mut mode = 0;
     let mut pressed_keys = HashMap::new();
+    let mut frame: i16 = 0;
 
     'main: loop {
         'event: loop {
@@ -56,18 +55,19 @@ fn main() {
         }
 
         match mode % 2 {
-            0 => draw_random_pixels(&screen),
+            0 => draw_colors(&screen, frame),
             1 => draw_controls(&screen, &pressed_keys),
             _ => panic!("bad mode"),
         }
 
         screen.flip();
+        frame += 1;
     }
 
     sdl::quit();
 }
 
-fn draw_random_pixels(screen: &Surface) {
+fn draw_colors(screen: &Surface, frame: i16) {
     for i in 0..SIZE_X {
         for j in 0..SIZE_Y {
             screen.fill_rect(
@@ -77,7 +77,7 @@ fn draw_random_pixels(screen: &Surface) {
                     w: 1,
                     h: 1,
                 }),
-                rand::thread_rng().gen::<sdl::video::Color>(),
+                Color::RGB( (3*i+2*j-frame) as u8, (4*i-3*j+2*frame) as u8, (-5*i+j+frame) as u8),
             );
         }
     }
