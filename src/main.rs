@@ -54,9 +54,10 @@ fn main() {
             }
         }
 
-        match mode % 2 {
+        match mode % 3 {
             0 => draw_colors(&screen, frame),
             1 => draw_controls(&screen, &pressed_keys),
+            2 => draw_alternating(&screen, frame),
             _ => panic!("bad mode"),
         }
 
@@ -78,6 +79,23 @@ fn draw_colors(screen: &Surface, frame: i16) {
                     h: 1,
                 }),
                 Color::RGB( (3*i+2*j-frame) as u8, (4*i-3*j+2*frame) as u8, (-5*i+j+frame) as u8),
+            );
+        }
+    }
+}
+
+fn draw_alternating(screen: &Surface, frame: i16) {
+    for i in 0..SIZE_X {
+        for j in 0..SIZE_Y {
+            let v = if (i+j+frame) % 2 == 0 { 255 } else { 0 };
+            screen.fill_rect(
+                Some(sdl::Rect {
+                    x: i,
+                    y: j,
+                    w: 1,
+                    h: 1,
+                }),
+                Color::RGB(v, v, v),
             );
         }
     }
