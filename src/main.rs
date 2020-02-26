@@ -4,7 +4,7 @@ extern crate sdl;
 use std::collections::HashMap;
 
 use sdl::event::{Event, Key};
-use sdl::video::{Surface, SurfaceFlag, VideoFlag, Color};
+use sdl::video::{Color, Surface, SurfaceFlag, VideoFlag};
 
 const SIZE_X: i16 = 320;
 const SIZE_Y: i16 = 240;
@@ -78,7 +78,11 @@ fn draw_colors(screen: &Surface, frame: i16) {
                     w: 1,
                     h: 1,
                 }),
-                Color::RGB( (3*i+2*j-frame) as u8, (4*i-3*j+2*frame) as u8, (-5*i+j+frame) as u8),
+                Color::RGB(
+                    (3 * i + 2 * j - frame) as u8,
+                    (4 * i - 3 * j + 2 * frame) as u8,
+                    (-5 * i + j + frame) as u8,
+                ),
             );
         }
     }
@@ -87,7 +91,7 @@ fn draw_colors(screen: &Surface, frame: i16) {
 fn draw_alternating(screen: &Surface, frame: i16) {
     for i in 0..SIZE_X {
         for j in 0..SIZE_Y {
-            let v = if (i+j+frame) % 2 == 0 { 255 } else { 0 };
+            let v = if (i + j + frame) % 2 == 0 { 255 } else { 0 };
             screen.fill_rect(
                 Some(sdl::Rect {
                     x: i,
