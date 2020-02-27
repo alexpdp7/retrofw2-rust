@@ -8,6 +8,10 @@ https://retrogame300.com/products/retro-game-300
 
 This should also work on other devices using JZ4760 and RetroFW, such as the RS-97, Retro Arcade Mini and LDK.
 
+See it in action here:
+
+[![Video of the RG-300 running the code in this repo](http://img.youtube.com/vi/Rtf8ZEVALjQ/0.jpg)](http://www.youtube.com/watch?v=Rtf8ZEVALjQ "Video of the RG-300 running the code in this repo")
+
 There aren't so many devices of this kind, and the ones I found sounded even harder for Rust. However, recently I found:
 
 https://www.hardkernel.com/shop/odroid-go-advance/
