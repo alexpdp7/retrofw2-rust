@@ -2,6 +2,9 @@ extern crate rand;
 extern crate sdl;
 
 use std::collections::HashMap;
+use std::f32::consts::PI;
+
+use ao_rs::{Ao, Device, Driver, Format};
 
 use sdl::event::{Event, Key};
 use sdl::video::{Color, Surface, SurfaceFlag, VideoFlag};
@@ -23,6 +26,25 @@ const CONTROL_SELECT: Key = Key::Escape;
 const CONTROL_START: Key = Key::Return;
 
 fn main() {
+    let _ao = Ao::new();
+    let driver = Driver::new().unwrap();
+    let format = Format::new();
+    let device = Device::new(&driver, &format, None).unwrap();
+    let freq = 440.0;
+
+    // Create PCM data formatted as 2 channels
+    // of 16 bits each (Time1, Channel1; Time2, Channel2...).
+    let buff_size = format.bits / 8 * format.channels * format.rate;
+    let mut buffer: Vec<i8> = vec![0; buff_size as usize];
+    for (i, chunk) in buffer.chunks_mut(4).enumerate() {
+        let sin = (2.0 * PI * freq * (i as f32) / (format.rate as f32)).sin();
+        let sample = (0.75 * 32768.0 * sin) as i16;
+        chunk[0] = (sample & 0xff) as i8;
+        chunk[2] = chunk[0];
+        chunk[1] = ((sample >> 8) & 0xff) as i8;
+        chunk[3] = chunk[1];
+    }
+
     sdl::init(&[sdl::InitFlag::Video]);
     sdl::wm::set_caption("rust-sdl demo - video", "rust-sdl");
 
@@ -54,10 +76,11 @@ fn main() {
             }
         }
 
-        match mode % 3 {
+        match mode % 4 {
             0 => draw_colors(&screen, frame),
             1 => draw_controls(&screen, &pressed_keys),
             2 => draw_alternating(&screen, frame),
+            3 => make_sine(&device, &buffer, frame),
             _ => panic!("bad mode"),
         }
 
@@ -66,6 +89,12 @@ fn main() {
     }
 
     sdl::quit();
+}
+
+fn make_sine(device: &Device, buffer: &[i8], frame: i16) {
+    if frame % 100 == 0 {
+        device.play(&buffer);
+    }
 }
 
 fn draw_colors(screen: &Surface, frame: i16) {
