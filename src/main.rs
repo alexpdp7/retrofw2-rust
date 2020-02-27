@@ -71,7 +71,9 @@ fn main() {
                 // Key(_, false, _) means key up, true key down
                 Event::Key(CONTROL_SELECT, false, _, _) => break 'main,
                 Event::Key(CONTROL_START, false, _, _) => mode += 1,
-                Event::Key(k, pressed, _, _) => drop(pressed_keys.insert(k as isize, pressed)),
+                Event::Key(k, pressed, _, _) => pressed_keys
+                    .insert(k as isize, pressed)
+                    .map_or_else(|| (), |_| ()),
                 _ => {}
             }
         }
