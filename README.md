@@ -68,7 +68,12 @@ $ lftp 169.254.1.1
 > put target/mipsel-unknown-linux-uclibc/debug/retrofw2-rust
 ```
 
-Once it is copied, you can enable debug logs by activating the "Output logs" option in `Settings`. Then use `apps` / `Explorer` to locate `retrofw2-rust` in `/home/retrofw` and execute it. It will draw random color squares; you can press SELECT to exit.
+Once it is copied, you can enable debug logs by activating the "Output logs" option in `Settings`. Then use `apps` / `Explorer` to locate `retrofw2-rust` in `/home/retrofw` and execute it. Use the Select button to quit. Start will switch between modes:
+
+* Draw some color bars
+* Show which buttons are being pressed
+* Show a one-pixel alternating checkerboard pattern (useful to verify screen resolution)
+* Play periodic sine waves
 
 You can see the output by going to the settings screen and using the new `Log Viewer` application.
 
