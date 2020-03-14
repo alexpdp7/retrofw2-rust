@@ -1,4 +1,3 @@
-extern crate rand;
 extern crate sdl;
 
 use std::collections::HashMap;
