@@ -146,7 +146,7 @@ name = "retrofw2-rust"
 version = "0.1.0"
 dependencies = [
  "ao_rs 0.1.5 (git+https://github.com/alexpdp7/ao-rs?branch=update)",
- "rand 0.3.23 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rand 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "sdl 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
