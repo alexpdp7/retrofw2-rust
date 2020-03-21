@@ -46,7 +46,7 @@ I opened a bug to see if they restore support:
 
 https://github.com/rust-lang/rust/issues/68865
 
-In the meantime. I created some patches to fix this working on top of buildroot master (commit `78a9eab661c2e097a43fbee780f80423701796be`). They are in this repo as `00*`. `0001`-`0009` are some patches that @glebm showed me that update Rust to 1.40.0. `0010` is an ugly buildroot hack that forces buildroot to build Rust for the `mipsel-unknown-linux-uclibc` target; buildroot doesn't want to build Rust on uclibc (it's a tier 3 target for Rust, so it's not built nor tested automatically). This is ugly and borks building any other target. `0011` adds a patch on top of Rust to buildroot which disables the generation of mips32r2 instructions.
+In the meantime. I created some patches to fix this working. I made them on top of master, but they apply well on top of the `2020.02.x` branch, which should be more stable. They are in this repo as `00*`. `0001`-`0009` are some patches that @glebm showed me that update Rust to 1.40.0. `0010` is an ugly buildroot hack that forces buildroot to build Rust for the `mipsel-unknown-linux-uclibc` target; buildroot doesn't want to build Rust on uclibc (it's a tier 3 target for Rust, so it's not built nor tested automatically). This is ugly and borks building any other target. `0011` adds a patch on top of Rust to buildroot which disables the generation of mips32r2 instructions.
 
 To build, apply those patches and copy `buildroot-config` in this repo as `.config` to the root of the buildroot repo. Then build according to buildroot's instructions.
 
