@@ -5,6 +5,9 @@ use std::f32::consts::PI;
 
 use ao_rs::{Ao, Device, Driver, Format};
 
+use rand::rngs::SmallRng;
+use rand::{RngCore, SeedableRng};
+
 use sdl::event::{Event, Key};
 use sdl::video::{Color, Surface, SurfaceFlag, VideoFlag};
 
@@ -77,11 +80,12 @@ fn main() {
             }
         }
 
-        match mode % 4 {
+        match mode % 5 {
             0 => draw_colors(&screen, frame),
             1 => draw_controls(&screen, &pressed_keys),
             2 => draw_alternating(&screen, frame),
             3 => make_sine(&device, &buffer, frame),
+            4 => draw_raw(&screen),
             _ => panic!("bad mode"),
         }
 
@@ -96,6 +100,15 @@ fn make_sine(device: &Device, buffer: &[i8], frame: i16) {
     if frame % 100 == 0 {
         device.play(&buffer);
     }
+}
+
+fn draw_raw(screen: &Surface) {
+    let _draw = |pixels: &mut [u8]| -> bool {
+        SmallRng::from_entropy().fill_bytes(pixels);
+        true
+    };
+
+    screen.with_lock(_draw);
 }
 
 fn draw_colors(screen: &Surface, frame: i16) {
