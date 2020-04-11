@@ -61,7 +61,7 @@ $ export PATH=/path/to/buildroot/output/host/bin/:$PATH
 and then running:
 
 ```
-$ cargo build --target mipsel-unknown-linux-uclibc
+$ cargo build --target mipsel-unknown-linux-uclibc --release
 ```
 
 To run this software, I use lftp to copy the binary over:
@@ -69,7 +69,7 @@ To run this software, I use lftp to copy the binary over:
 ```
 $ lftp 169.254.1.1
 > cd /home/retrofw
-> put target/mipsel-unknown-linux-uclibc/debug/retrofw2-rust
+> put target/mipsel-unknown-linux-uclibc/release/retrofw2-rust
 ```
 
 Once it is copied, you can enable debug logs by activating the "Output logs" option in `Settings`. Then use `apps` / `Explorer` to locate `retrofw2-rust` in `/home/retrofw` and execute it. Use the Select button to quit. Start will switch between modes:
