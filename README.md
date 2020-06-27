@@ -81,7 +81,7 @@ Once it is copied, you can enable debug logs by activating the "Output logs" opt
 
 You can see the output by going to the settings screen and using the new `Log Viewer` application.
 
-Note that you can also run the program natively on your workstation for development/prototyping/debugging (however, [audio doesn't work right now](https://github.com/alexpdp7/retrofw2-rust/issues/2)).
+Note that you can also run the program natively on your workstation for development/prototyping/debugging. If your desktop uses `pulseaudio`, use `padsp` to run the program.
 
 # Appendices
 
