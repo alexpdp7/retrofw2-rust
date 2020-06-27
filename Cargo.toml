@@ -6,5 +6,5 @@ edition = "2018"
 
 [dependencies]
 sdl = "0.3.6"
-ao_rs = { git = "https://github.com/alexpdp7/ao-rs", branch = "update" }
+ao_rs = { git = "https://github.com/danielrs/ao-rs", branch = "master" }
 rand = { version = "0.7.3" , features = ["small_rng"] }

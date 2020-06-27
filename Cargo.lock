@@ -3,7 +3,7 @@
 [[package]]
 name = "ao_rs"
 version = "0.1.5"
-source = "git+https://github.com/alexpdp7/ao-rs?branch=update#78ee73036a50deac2b2fc9de276f03fd0b6694ba"
+source = "git+https://github.com/danielrs/ao-rs#deae16de63710ee9c33b54969d9be304ca1d7897"
 dependencies = [
  "libc 0.2.67 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -211,7 +211,7 @@ dependencies = [
 name = "retrofw2-rust"
 version = "0.1.0"
 dependencies = [
- "ao_rs 0.1.5 (git+https://github.com/alexpdp7/ao-rs?branch=update)",
+ "ao_rs 0.1.5 (git+https://github.com/danielrs/ao-rs)",
  "rand 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "sdl 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -256,7 +256,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [metadata]
-"checksum ao_rs 0.1.5 (git+https://github.com/alexpdp7/ao-rs?branch=update)" = "<none>"
+"checksum ao_rs 0.1.5 (git+https://github.com/danielrs/ao-rs)" = "<none>"
 "checksum autocfg 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)" = "f8aac770f1885fd7e387acedd76065302551364496e46b3dd00860b2f8359b9d"
 "checksum cfg-if 0.1.10 (registry+https://github.com/rust-lang/crates.io-index)" = "4785bdd1c96b2a846b2bd7cc02e86b6b3dbf14e7e53446c4f54c92a361040822"
 "checksum fuchsia-cprng 0.1.1 (registry+https://github.com/rust-lang/crates.io-index)" = "a06f77d526c1a601b7c4cdd98f54b5eaabffc14d5f2f0296febdc7f357c6d3ba"
