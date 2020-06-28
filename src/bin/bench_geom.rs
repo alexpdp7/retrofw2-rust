@@ -10,7 +10,7 @@ use retrofw2_rust::geom::Painter;
 
 fn main() {
     let (screen, video_info) = retrofw2_rust::gfx::init();
-    let mut pressed_keys =  PressedKeys::default();
+    let mut pressed_keys = PressedKeys::default();
     let start = std::time::Instant::now();
     let mut frames: usize = 0;
     let sin_cos_lut = retrofw2_rust::geom::get_sin_cos_lut();
@@ -40,7 +40,15 @@ fn main() {
             let mut rng = SmallRng::from_entropy();
             for _ in 0..10 {
                 let (dx, dy) = sin_cos_lut[frames % 256];
-                painter.draw_line(160, 120, 160 + (dx*10.0) as isize, 120 + (dy*10.0) as isize, rng.b(), rng.b(), rng.b());
+                painter.draw_line(
+                    160,
+                    120,
+                    160 + (dx * 10.0) as isize,
+                    120 + (dy * 10.0) as isize,
+                    rng.b(),
+                    rng.b(),
+                    rng.b(),
+                );
             }
             true
         };
@@ -48,7 +56,10 @@ fn main() {
         screen.flip();
     }
     sdl::quit();
-    println!("{}", 1000.0 * frames as f32 / start.elapsed().as_millis() as f32);
+    println!(
+        "{}",
+        1000.0 * frames as f32 / start.elapsed().as_millis() as f32
+    );
 }
 
 trait Foo {
@@ -58,8 +69,13 @@ trait Foo {
 }
 
 impl Foo for SmallRng {
-    fn x(&mut self) -> isize { (self.next_u32() % 320) as isize}
-    fn y(&mut self) -> isize { (self.next_u32() % 240) as isize }
-    fn b(&mut self) -> u8 { self.next_u32() as u8}
-
+    fn x(&mut self) -> isize {
+        (self.next_u32() % 320) as isize
+    }
+    fn y(&mut self) -> isize {
+        (self.next_u32() % 240) as isize
+    }
+    fn b(&mut self) -> u8 {
+        self.next_u32() as u8
+    }
 }
