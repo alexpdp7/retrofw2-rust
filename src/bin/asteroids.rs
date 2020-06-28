@@ -163,8 +163,6 @@ struct Ship {
     rot: Wrapping<u8>,
 }
 
-impl Ship {}
-
 fn main() {
     Asteroids::new().main();
 }
