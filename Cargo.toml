@@ -8,3 +8,4 @@ edition = "2018"
 sdl = "0.3.6"
 ao_rs = { git = "https://github.com/danielrs/ao-rs", branch = "master" }
 rand = { version = "0.7.3" , features = ["small_rng"] }
+modulo = "0.1.2"
