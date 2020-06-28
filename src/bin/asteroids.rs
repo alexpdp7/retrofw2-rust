@@ -14,6 +14,8 @@ struct Asteroids {
     pressed_keys: PressedKeys,
     ship: Ship,
     sin_cos_lut: [(f32, f32); 256],
+    frames: usize,
+    start: std::time::Instant,
 }
 
 impl Asteroids {
@@ -33,6 +35,8 @@ impl Asteroids {
                 rot: Wrapping(0u8),
             },
             sin_cos_lut: retrofw2_rust::geom::get_sin_cos_lut(),
+            frames: 0,
+            start: std::time::Instant::now(),
         }
     }
 
@@ -61,6 +65,7 @@ impl Asteroids {
             }
 
             self.screen.fill(sdl::video::Color::RGB(0, 0, 0));
+            self.frames += 1;
 
             let _draw = |pixels: &mut [u8]| -> bool {
                 let mut painter = Painter {
@@ -76,6 +81,7 @@ impl Asteroids {
         }
 
         sdl::quit();
+        println!("{}", 1000.0 * self.frames as f32 / self.start.elapsed().as_millis() as f32);
     }
 
     fn draw_ship(&self, painter: &mut Painter) {
