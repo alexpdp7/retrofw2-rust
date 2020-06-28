@@ -1,5 +1,5 @@
 [package]
-name = "retrofw2-rust"
+name = "retrofw2_rust"
 version = "0.1.0"
 authors = ["alex <alex@pdp7.net>"]
 edition = "2018"

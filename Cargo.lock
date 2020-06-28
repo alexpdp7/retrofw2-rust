@@ -208,7 +208,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "retrofw2-rust"
+name = "retrofw2_rust"
 version = "0.1.0"
 dependencies = [
  "ao_rs 0.1.5 (git+https://github.com/danielrs/ao-rs)",
