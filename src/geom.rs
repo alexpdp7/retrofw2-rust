@@ -49,7 +49,7 @@ impl<'a> Painter<'a> {
             + ((b as u32 >> self.video_info.format.b_loss) << self.video_info.format.b_shift);
 
         for _ in 0..(self.video_info.format.bpp >> 3) {
-            self.pixels[pixel_pos as usize] = (coloru32 % 256) as u8;
+            self.pixels[pixel_pos] = coloru32 as u8;
             pixel_pos += 1;
             coloru32 >>= 8;
         }
