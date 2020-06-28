@@ -16,6 +16,7 @@ struct Asteroids {
     sin_cos_lut: [(f32, f32); 256],
     frames: usize,
     start: std::time::Instant,
+    last_frame: std::time::Instant,
 }
 
 impl Asteroids {
@@ -37,11 +38,14 @@ impl Asteroids {
             sin_cos_lut: retrofw2_rust::geom::get_sin_cos_lut(),
             frames: 0,
             start: std::time::Instant::now(),
+            last_frame: std::time::Instant::now(),
         }
     }
 
     fn main(mut self) {
+        self.start = std::time::Instant::now();
         'main: loop {
+            self.last_frame = std::time::Instant::now();
             'event: loop {
                 let event = sdl::event::poll_event();
                 self.pressed_keys.process_key(&event);
@@ -57,11 +61,11 @@ impl Asteroids {
             }
 
             if self.pressed_keys.is_pressed(CONTROL_LEFT) {
-                self.ship.rot += std::num::Wrapping(1);
+                self.ship.rot += std::num::Wrapping(4);
             }
 
             if self.pressed_keys.is_pressed(CONTROL_RIGHT) {
-                self.ship.rot -= std::num::Wrapping(1);
+                self.ship.rot -= std::num::Wrapping(4);
             }
 
             self.screen.fill(sdl::video::Color::RGB(0, 0, 0));
@@ -78,6 +82,11 @@ impl Asteroids {
             self.screen.with_lock(_draw);
 
             self.screen.flip();
+            let now = std::time::Instant::now();
+            let frame_diff = now.duration_since(self.last_frame);
+            if frame_diff < std::time::Duration::from_millis(16) {
+                std::thread::sleep(std::time::Duration::from_millis(16) - frame_diff);
+            }
         }
 
         sdl::quit();
