@@ -71,29 +71,8 @@ impl Asteroids {
                 break;
             }
 
-            if self.pressed_keys.is_pressed(CONTROL_LEFT) {
-                self.ship.rot += std::num::Wrapping(4);
-            }
-
-            if self.pressed_keys.is_pressed(CONTROL_RIGHT) {
-                self.ship.rot -= std::num::Wrapping(4);
-            }
-
-            if self.pressed_keys.is_pressed(CONTROL_B) {
-                let d = self.sin_cos_lut[self.ship.rot.0 as usize];
-                self.ship.dx += d.0;
-                self.ship.dy += d.1;
-            }
-
-            self.ship.dx *= 0.9;
-            self.ship.dy *= 0.9;
-
-            for mut star in self.stars.iter_mut() {
-                star.x -= self.ship.dx * (star.depth as f32) / 500_000.0;
-                star.y -= self.ship.dy * (star.depth as f32) / 500_000.0;
-                star.x = star.x.modulo(self.prop_width);
-                star.y = star.y.modulo(1.0);
-            }
+            self.handle_ship();
+            self.handle_stars();
 
             self.screen.fill(sdl::video::Color::RGB(0, 0, 0));
             self.frames += 1;
@@ -124,6 +103,25 @@ impl Asteroids {
             "{}",
             1000.0 * self.frames as f32 / self.start.elapsed().as_millis() as f32
         );
+    }
+
+    fn handle_ship(&mut self) {
+        if self.pressed_keys.is_pressed(CONTROL_LEFT) {
+            self.ship.rot += std::num::Wrapping(4);
+        }
+
+        if self.pressed_keys.is_pressed(CONTROL_RIGHT) {
+            self.ship.rot -= std::num::Wrapping(4);
+        }
+
+        if self.pressed_keys.is_pressed(CONTROL_B) {
+            let d = self.sin_cos_lut[self.ship.rot.0 as usize];
+            self.ship.dx += d.0;
+            self.ship.dy += d.1;
+        }
+
+        self.ship.dx *= 0.9;
+        self.ship.dy *= 0.9;
     }
 
     fn draw_ship(&self, painter: &mut Painter) {
@@ -163,6 +161,15 @@ impl Asteroids {
             self.ship.rot - Wrapping(40u8),
             -0.03,
         );
+    }
+
+    fn handle_stars(&mut self) {
+        for mut star in self.stars.iter_mut() {
+            star.x -= self.ship.dx * (star.depth as f32) / 500_000.0;
+            star.y -= self.ship.dy * (star.depth as f32) / 500_000.0;
+            star.x = star.x.modulo(self.prop_width);
+            star.y = star.y.modulo(1.0);
+        }
     }
 
     fn draw_stars(&self, painter: &mut Painter) {
