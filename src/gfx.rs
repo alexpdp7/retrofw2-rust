@@ -9,7 +9,7 @@ pub fn init() -> (sdl::video::Surface, sdl::video::VideoInfo) {
         best.width,
         best.height,
         best.format.bpp as isize,
-        &[SurfaceFlag::SWSurface],
+        &[SurfaceFlag::HWSurface],
         &[VideoFlag::DoubleBuf],
     ) {
         Ok(screen) => screen,
