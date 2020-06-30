@@ -132,18 +132,18 @@ impl Asteroids {
             self.ship.x,
             self.ship.y,
             self.ship.rot,
-            0.02,
+            0.03,
             self.ship.rot + Wrapping(40u8),
-            -0.02,
+            -0.03,
         );
         self.draw_polar_line(
             painter,
             self.ship.x,
             self.ship.y,
             self.ship.rot,
-            0.02,
+            0.03,
             self.ship.rot - Wrapping(40u8),
-            -0.02,
+            -0.03,
         );
         self.draw_polar_line(
             painter,
@@ -152,7 +152,7 @@ impl Asteroids {
             self.ship.rot,
             0.0,
             self.ship.rot + Wrapping(40u8),
-            -0.02,
+            -0.03,
         );
         self.draw_polar_line(
             painter,
@@ -161,7 +161,7 @@ impl Asteroids {
             self.ship.rot,
             0.0,
             self.ship.rot - Wrapping(40u8),
-            -0.02,
+            -0.03,
         );
     }
 
