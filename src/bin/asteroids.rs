@@ -110,10 +110,12 @@ impl Asteroids {
             self.screen.with_lock(_draw);
 
             self.screen.flip();
-            let now = std::time::Instant::now();
-            let frame_diff = now.duration_since(self.last_frame);
-            if frame_diff < std::time::Duration::from_millis(16) {
-                std::thread::sleep(std::time::Duration::from_millis(16) - frame_diff);
+            if cfg!(feature = "throttle") {
+                let now = std::time::Instant::now();
+                let frame_diff = now.duration_since(self.last_frame);
+                if frame_diff < std::time::Duration::from_millis(16) {
+                    std::thread::sleep(std::time::Duration::from_millis(16) - frame_diff);
+                }
             }
         }
 

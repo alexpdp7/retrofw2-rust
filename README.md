@@ -85,6 +85,10 @@ Note that you can also run the program natively on your workstation for developm
 
 # Appendices
 
+## Framecaps
+
+RetroFW seems to cap the framerate to 60fps, but on my laptop it seems to be unthrottled. I wasn't able to write generic code that will throttle adequately *all* environments to 60fps, so in the `asteroids` example I do conditional compilation of the throttling code.
+
 ## Feedback and discussion
 
 https://users.rust-lang.org/t/trying-to-compile-rust-sdl-stuff-for-a-rg300-console-buildroot-mipsel-uclibc/36722/14
