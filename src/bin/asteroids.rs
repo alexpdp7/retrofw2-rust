@@ -24,6 +24,7 @@ struct Asteroids {
     start: std::time::Instant,
     last_frame: std::time::Instant,
     stars: [Star; 100],
+    asteroids: std::vec::Vec<Asteroid>,
 }
 
 impl Asteroids {
@@ -50,6 +51,7 @@ impl Asteroids {
             start: std::time::Instant::now(),
             last_frame: std::time::Instant::now(),
             stars: make_stars(prop_width),
+            asteroids: make_asteroids(prop_width),
         }
     }
 
@@ -73,6 +75,7 @@ impl Asteroids {
 
             self.handle_ship();
             self.handle_stars();
+            self.handle_asteroids();
 
             self.screen.fill(sdl::video::Color::RGB(0, 0, 0));
             self.frames += 1;
@@ -84,6 +87,7 @@ impl Asteroids {
                 };
                 self.draw_ship(&mut painter);
                 self.draw_stars(&mut painter);
+                self.draw_asteroids(&mut painter);
                 true
             };
             self.screen.with_lock(_draw);
@@ -172,6 +176,30 @@ impl Asteroids {
         }
     }
 
+    fn handle_asteroids(&mut self) {
+        for mut asteroid in self.asteroids.iter_mut() {
+            asteroid.rot =
+                Wrapping(Wrapping(asteroid.rot.0 as i16 + asteroid.drot.0 as i16).0 as u8);
+            asteroid.x -= self.ship.dx / 1000.0;
+            asteroid.y -= self.ship.dy / 1000.0;
+            asteroid.x -= asteroid.dx / 1000.0;
+            asteroid.y -= asteroid.dy / 1000.0;
+
+            if asteroid.x < -0.2 {
+                asteroid.x = self.prop_width + 0.1;
+            }
+            if asteroid.x > self.prop_width + 0.2 {
+                asteroid.x = -0.1;
+            }
+            if asteroid.y < -0.2 {
+                asteroid.y = 1.1;
+            }
+            if asteroid.y > 1.2 {
+                asteroid.y = -0.1;
+            }
+        }
+    }
+
     fn draw_stars(&self, painter: &mut Painter) {
         for star in self.stars.iter() {
             painter.put_pixel(
@@ -181,6 +209,24 @@ impl Asteroids {
                 star.depth,
                 star.depth,
             );
+        }
+    }
+
+    fn draw_asteroids(&self, painter: &mut Painter) {
+        for asteroid in self.asteroids.iter() {
+            let mut rotated = asteroid.rads;
+            rotated.rotate_left(1);
+            for (i, (rad1, rad2)) in asteroid.rads.iter().zip(rotated.iter()).enumerate() {
+                self.draw_polar_line(
+                    painter,
+                    asteroid.x,
+                    asteroid.y,
+                    asteroid.rot + Wrapping((i as u8) << 4),
+                    *rad1,
+                    asteroid.rot + Wrapping(((i + 1) as u8) << 4),
+                    *rad2,
+                );
+            }
         }
     }
 
@@ -233,6 +279,52 @@ fn make_stars(prop_width: f32) -> [Star; 100] {
         star.depth = rng.gen_range(0, 255);
     }
     stars
+}
+
+struct Asteroid {
+    x: f32,
+    y: f32,
+    dx: f32,
+    dy: f32,
+    rot: Wrapping<u8>,
+    drot: Wrapping<i8>,
+    rads: [f32; 16],
+}
+
+impl Asteroid {
+    fn new(prop_width: f32) -> Asteroid {
+        let mut rng = SmallRng::from_entropy();
+
+        Asteroid {
+            x: rng.gen_range(0.0, prop_width),
+            y: rng.gen_range(0.0, 1.0),
+            dx: rng.gen_range(-3.0, 3.0),
+            dy: rng.gen_range(-3.0, 3.0),
+            rot: Wrapping(0),
+            drot: Wrapping(rng.gen_range(-4, 4)),
+            rads: Asteroid::make_rads(),
+        }
+    }
+
+    fn make_rads() -> [f32; 16] {
+        let mut rads = [0.0; 16];
+
+        let mut rng = SmallRng::from_entropy();
+        let rad = rng.gen_range(0.02, 0.1);
+
+        std::ops::Range { start: 0, end: 16 }
+            .map(|_| rad + rng.gen_range(-0.01, 0.01))
+            .zip(rads.iter_mut())
+            .for_each(|(sc, a)| *a = sc);
+
+        rads
+    }
+}
+
+fn make_asteroids(prop_width: f32) -> std::vec::Vec<Asteroid> {
+    (0..10)
+        .map(|_| Asteroid::new(prop_width))
+        .collect::<std::vec::Vec<Asteroid>>()
 }
 
 fn main() {

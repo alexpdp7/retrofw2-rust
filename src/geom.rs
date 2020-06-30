@@ -40,6 +40,9 @@ impl<'a> Painter<'a> {
 
     #[allow(clippy::many_single_char_names)]
     pub fn put_pixel(&mut self, x: isize, y: isize, r: u8, g: u8, b: u8) {
+        if x < 0 || y < 0 || x >= self.video_info.width || y >= self.video_info.height {
+            return;
+        }
         let mut pixel_pos =
             ((y * self.video_info.width + x) * (self.video_info.format.bpp >> 3) as isize) as usize;
 
